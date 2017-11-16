@@ -16,7 +16,7 @@ import java.util.Random;
 import serverinterface.ServerInterface;
 /**
  *
- * @author Imana
+ * @author Sulejman
  */
 public class ServerImp extends UnicastRemoteObject implements ServerInterface {
 
@@ -31,23 +31,28 @@ public class ServerImp extends UnicastRemoteObject implements ServerInterface {
 
     @Override
     public void initializeStream() throws RemoteException {
+
         try {
-        File inFile = new File("recnik.txt");
-        fileReader = new FileReader(inFile);
-        buffFileReader = new BufferedReader(fileReader);
+            File inFile = new File("recnik.txt");
+            fileReader = new FileReader(inFile);
+            buffFileReader = new BufferedReader(fileReader);
         
         String currentLine = buffFileReader.readLine();
         
             while(currentLine != null) {
+
                 recnik.add(currentLine);
                 currentLine = buffFileReader.readLine();
+
             } 
+
             buffFileReader.close();
             fileReader.close();
-    } catch (IOException e) {
-        System.out.println("stream error!");
+
+        } catch (IOException e) {
+            System.out.println("stream error!");
+        }
     }
-}
 
     @Override
     public String izaberiRec() throws RemoteException {

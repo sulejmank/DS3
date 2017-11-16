@@ -27,24 +27,24 @@ public class Igra {
     int max_pokusaj = 6;
     int trenutni = 0;
     
-    
-  
-    
+     
     
     public Igra() throws IOException {
     trenutni_pokusaj = initializeTrenutniPokusaj();
-} 
+    } 
 
 
   
 public StringBuilder initializeTrenutniPokusaj() {
     
     StringBuilder current = new StringBuilder();
+
     for(int i = 0; i < trazenaRec.length()*2; i++) {
         if(i%2 == 0) {
             current.append("_");
             
         } else {
+
             current.append(" ");
         }
     }
@@ -59,26 +59,33 @@ public String getCurrentGuess() {
 }
 
 public boolean zavrsenaIgra() {
+
     if(pobeda()) {
+
         System.out.println("bravooo!");
         return true;
         
-    } else if (poraz()) 
-    {
+    } else if (poraz()) {
         
         return true;
+
     }
+
     return false;
 }
 
 public boolean pobeda() {
+
     String guess = getGuess();
     return guess.equals(trazenaRec);
+
 }
 
  public void setIcon(ImageIcon icon) {
+
      JLabel imgL = new JLabel();
             imgL.setIcon(icon);
+
         }
 
 
@@ -87,19 +94,23 @@ public boolean poraz() {
 }
 
 public String getGuess() {
+
     String guess = trenutni_pokusaj.toString();
     return guess.replace(" ", "");
+
 }
-public boolean vecPogodjeno(char guess) {
-    
+
+public boolean vecPogodjeno(char guess) {  
     return prethodniPokusaji.contains(guess);
 }
     
-
  public boolean pogodak(char guess) {
+
         boolean isItAGoodGuess = false;
         prethodniPokusaji.add(guess);
+
         for (int i = 0; i < trazenaRec.length(); i++) {
+            
             if (trazenaRec.charAt(i) == guess) {
                 trenutni_pokusaj.setCharAt(i * 2, guess);
                 isItAGoodGuess = true;

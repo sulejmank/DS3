@@ -54,9 +54,10 @@ public class IgraVesalaUI  {
                 ServerInterface s = (ServerInterface) registry.lookup("RecnikService");
                 Igra.trazenaRec = s.izaberiRec();
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
+
              JOptionPane.showMessageDialog(null, "Server is not running!!");
+
         }
        
         igra = new Igra();
@@ -102,70 +103,72 @@ public class IgraVesalaUI  {
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 String ulaz = txt.getText();
                 char guess = ulaz.charAt(0);
                 
-                if(igra.vecPogodjeno(guess)){
+                if (igra.vecPogodjeno(guess)) {
                     
                     JOptionPane.showMessageDialog(null, "To slovo ste vec pokusali, probajte drugo!");
                     txt.setText("");
+
                 }
-               else if(igra.pogodak(guess)) {
+               else if (igra.pogodak(guess)) {
                    
-                      JOptionPane.showMessageDialog(null, "POGDAK!!");
+                       JOptionPane.showMessageDialog(null, "POGODAK!");
                        txt.setText("");
                        txt2.revalidate();
                        txt2.repaint();
                        txt2.setText(igra.getCurrentGuess());
                        
-                       if(igra.pobeda()){
-                           JOptionPane.showMessageDialog(null, "Pobedili ste!!!");
-                          }
+                       if (igra.pobeda()) {
+
+                           JOptionPane.showMessageDialog(null, "Pobedili ste!");
+
+                         }
                        
                        }  else {
                    
-                    JOptionPane.showMessageDialog(null, "Nema tog slova!");
-                    txt.setText("");
-                    br_pogresnih++;
-                    panel.removeAll();
+                            JOptionPane.showMessageDialog(null, "Nema tog slova!");
+                            txt.setText("");
+                            br_pogresnih++;
+                            panel.removeAll();
+                            
+                            ImageIcon img = new ImageIcon(br_pogresnih+".png");
+                            JLabel imgL = new JLabel(img);
+                            panel.add(imgL);
+                        
+                            panel.add(txt,c);
+                            panel.add(btn1,c);
+                            panel.add(txt2,c);
+                            
+                            panel.add(btn2,c);
+                            txt2.setText(igra.getCurrentGuess());
+                            
+                            if (br_pogresnih > 6) {
+
+                                JOptionPane.showMessageDialog(null, "Izgubili ste!! Trazena rec je bila :" + igra.trazenaRec);
+                                txt2.setText("");
+                            
+                            }
+                        
+                            imgL.revalidate();
+                            imgL.repaint();
+                            
+                            panel.revalidate();
+                            panel.repaint();                 
                     
-                    ImageIcon img = new ImageIcon(br_pogresnih+".png");
-                    JLabel imgL = new JLabel(img);
-                    panel.add(imgL);
-                   
-                    panel.add(txt,c);
-                    panel.add(btn1,c);
-                    panel.add(txt2,c);
-                    
-                    panel.add(btn2,c);
-                    txt2.setText(igra.getCurrentGuess());
-                    
-                    if(br_pogresnih > 6) {
-                        JOptionPane.showMessageDialog(null, "Izgubili ste!! Trazena rec je bila :" + igra.trazenaRec);
-                        txt2.setText("");
-                      
                     }
-                   
-                    imgL.revalidate();
-                    imgL.repaint();
-                    
-                    panel.revalidate();
-                    panel.repaint();
-                    
-                    
-               }
-            }
+                }
             
-        });
+            });
         
        btn2.addActionListener( new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                    
-                
+                                    
             br_pogresnih = 0;
-               
-            
+                         
             igra.trenutni_pokusaj = igra.initializeTrenutniPokusaj();
             igra.prethodniPokusaji = new ArrayList<>();
             
@@ -177,11 +180,12 @@ public class IgraVesalaUI  {
 
                         }
                          catch (NotBoundException | RemoteException a) {
+
                              JOptionPane.showMessageDialog(null, "Server is not running!!");
+
                         }
         
-                
-      
+                     
           
                     panel.removeAll();
                     ImageIcon img = new ImageIcon(br_pogresnih+".png");
@@ -197,16 +201,15 @@ public class IgraVesalaUI  {
 
                     panel.revalidate();
                     panel.repaint();
-    
-          
+            
                     
             }
            
        });
-        
-        
+               
        c.gridx = 3;
        c.gridy = 1;
+       
        panel.add(txt,c);
        panel.add(btn1,c);
        panel.add(txt2,c);

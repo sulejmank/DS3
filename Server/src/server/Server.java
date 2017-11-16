@@ -20,6 +20,7 @@ public class Server {
         Registry registry;
         
         try {
+            
             registry = LocateRegistry.createRegistry(8081);
             ServerImp s = new ServerImp();
             s.initializeStream();
